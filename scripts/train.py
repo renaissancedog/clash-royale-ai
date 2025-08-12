@@ -1,12 +1,14 @@
-NUMBER_OF_CATEGORIES = 8
+NUMBER_OF_CATEGORIES = 94
 
 import tensorflow as tf
+print("GPUs Available:", tf.config.list_physical_devices('GPU'))
+
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 IMG_SIZE = (224, 224)
 BATCH_SIZE = 16
-DATA_DIR = "cr/dataset"
+DATA_DIR = "dataset"
 
 train_ds = image_dataset_from_directory(
     DATA_DIR + "/train",
@@ -73,4 +75,4 @@ history_ft = model.fit(
     epochs=10
 )
 
-model.save("cr/model.keras")
+model.save("model.keras")

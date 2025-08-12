@@ -7,6 +7,7 @@ class_names=pd.DataFrame(class_names)
 folder_paths = class_names[0].apply(lambda x: f"dataset/train/{x}/")
 # folder_paths = ["cr/dataset/train/golem/"] for custom folder paths
 model = tf.keras.models.load_model("model.keras")
+count=0
 for folder in folder_paths:
   image_path=folder+(random.choice(os.listdir(folder)))
   image = load_img(image_path, target_size=(224, 224))
@@ -15,4 +16,8 @@ for folder in folder_paths:
   predicted_class = tf.argmax(predictions, axis=1).numpy()[0]
   print("Actual class:", folder.split('/')[-2])
   print(f"Predicted class: {class_names[0][predicted_class]}", "with confidence:", predictions[0][predicted_class])
+  if (predicted_class == class_names[0].tolist().index(folder.split('/')[-2])):
+    print("Prediction is correct!")
+    count+=1
   print(f"Predictions: {predictions[0]}")
+print(count)
